@@ -1,0 +1,125 @@
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,400&f[]=satoshi@700,500,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Backgrounds — layered depth system */
+  --bg-base:        #020507;   /* deepest void */
+  --bg-depth-1:     #060d12;   /* section bases */
+  --bg-depth-2:     #0a1520;   /* card surfaces */
+  --bg-depth-3:     #0f2030;   /* elevated panels */
+  --bg-glass:       rgba(10, 21, 32, 0.6);  /* frosted glass */
+
+  /* Accent system */
+  --cyan:           #00d4ff;
+  --cyan-dim:       rgba(0, 212, 255, 0.12);
+  --cyan-glow:      0 0 60px rgba(0,212,255,0.2), 0 0 120px rgba(0,212,255,0.08);
+  --green:          #00ff9d;
+  --green-dim:      rgba(0,255,157,0.1);
+  --amber:          #f59e0b;
+  --red:            #ff4560;
+  --violet:         #7c3aed;
+
+  /* Text */
+  --text-primary:   #eef4f8;
+  --text-secondary: #6b93ac;
+  --text-dim:       #2a4f68;
+  --text-mono:      #4ab3cc;
+
+  /* Borders */
+  --border-subtle:  rgba(0,212,255,0.06);
+  --border-active:  rgba(0,212,255,0.25);
+  --border-glass:   rgba(255,255,255,0.04);
+
+  /* Grid overlay (anti-PPT texture) */
+  --grid-line: rgba(0,212,255,0.03);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background Grid System (global, anti-PPT) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(0,212,255,0.07) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Noise grain overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.018;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-depth-3);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyan);
+}
+
+/* Custom Utility Classes */
+.card-hover {
+  @apply transition-all duration-300 hover:-translate-y-1 hover:border-border-active hover:shadow-cyan-glow;
+}
+
+.glass-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-glass);
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(90deg, #00d4ff, #00ff9d);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Lenis Scroll Styles */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}

@@ -1,0 +1,6 @@
+export const FEATURES = {
+  ENABLE_UNIFIED_HUB: process.env.NEXT_PUBLIC_ENABLE_UNIFIED_HUB === 'true' || false,
+  ENABLE_SEMANTIC_ROUTING: true,
+  ENABLE_PII_SCRUBBING: true,
+  ENABLE_VECTOR_CACHE: true,
+};
